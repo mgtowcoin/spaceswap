@@ -1510,7 +1510,7 @@ contract Interstellar is Ownable {
         }
         uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
         uint256 milkReward = multiplier.mul(milkPerBlock).mul(pool.allocPoint).div(totalAllocPoint);
-        milk.mint(devaddr, milkReward.div(10));
+        milk.mint(devaddr, milkReward.mul(3).div(100)); // todo
         milk.mint(address(this), milkReward);
         pool.accMilkPerShare = pool.accMilkPerShare.add(milkReward.mul(1e12).div(lpSupply));
         pool.lastRewardBlock = block.number;

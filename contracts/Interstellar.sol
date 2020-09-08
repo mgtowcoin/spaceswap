@@ -1,13 +1,11 @@
 pragma solidity 0.6.12;
 
-
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "@openzeppelin/contracts/utils/EnumerableSet.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./MilkyWayToken.sol";
-
 
 interface IMigratorInterstellar {
     // Perform LP token migration from legacy UniswapV2 to SpaceSwap.
@@ -192,7 +190,7 @@ contract Interstellar is Ownable {
         }
         uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
         uint256 milkReward = multiplier.mul(milkPerBlock).mul(pool.allocPoint).div(totalAllocPoint);
-        milk.mint(devaddr, milkReward.div(10));
+        milk.mint(devaddr, milkReward.mul(3).div(100)); // todo
         milk.mint(address(this), milkReward);
         pool.accMilkPerShare = pool.accMilkPerShare.add(milkReward.mul(1e12).div(lpSupply));
         pool.lastRewardBlock = block.number;
